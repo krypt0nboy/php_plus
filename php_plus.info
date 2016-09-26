@@ -1,0 +1,12 @@
+name = "PHP +"
+description = "Provides with handy php functions"
+core = 7.x
+
+; Version
+version = 7.x-1.0-beta1
+
+; Dependencies
+dependencies[] = ctools
+
+; Author
+; Harold Cohen AKA kryptonboy <me@harold-cohen.com>

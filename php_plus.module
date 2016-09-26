@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * The module's name.
+ */
+define('PHP_PLUS', 'php_plus');
+/**
+ * The module's path.
+ */
+define('PHP_PLUS_PATH', drupal_get_path('module', 'php_plus'));
+
+module_load_include('inc', PHP_PLUS, 'php_plus.arrays');
+module_load_include('inc', PHP_PLUS, 'php_plus.format');
+module_load_include('inc', PHP_PLUS, 'php_plus.vars');
+module_load_include('inc', PHP_PLUS, 'php_plus.oop');
+module_load_include('inc', PHP_PLUS, 'php_plus.logic');
+module_load_include('inc', PHP_PLUS, 'php_plus.regexp');
+module_load_include('inc', PHP_PLUS, 'php_plus.templating');
+module_load_include('inc', PHP_PLUS, 'php_plus.parsing');
+module_load_include('inc', PHP_PLUS, '/includes/os/php_plus.os.path');
+module_load_include('inc', PHP_PLUS, '/includes/os/php_plus.os.require');
+
+/**
+ * Implements hook_menu().
+ */
+function php_plus_menu() {
+  $items                               = array();
+  $items['admin/config/php-plus']      = array(
+    'title'            => t('PHP plus'),
+    'description'      => t('PHP plus'),
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file path'        => drupal_get_path('module', 'system'),
+    'file'             => 'system.admin.inc',
+  );
+  $items['admin/config/php-plus/test'] = array(
+    'title'            => 'PHP plus test',
+    'type'             => MENU_NORMAL_ITEM,
+    'page callback'    => 'php_plus_test',
+    'access arguments' => array('access site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Test function.
+ */
+function php_plus_test() {
+}
