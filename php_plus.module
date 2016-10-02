@@ -10,7 +10,7 @@ define('PHP_PLUS', 'php_plus');
 define('PHP_PLUS_PATH', drupal_get_path('module', 'php_plus'));
 
 module_load_include('inc', PHP_PLUS, 'php_plus.arrays');
-module_load_include('inc', PHP_PLUS, 'php_plus.format');
+module_load_include('inc', PHP_PLUS, 'php_plus.strings');
 module_load_include('inc', PHP_PLUS, 'php_plus.vars');
 module_load_include('inc', PHP_PLUS, 'php_plus.oop');
 module_load_include('inc', PHP_PLUS, 'php_plus.logic');
@@ -48,4 +48,5 @@ function php_plus_menu() {
  * Test function.
  */
 function php_plus_test() {
+
 }

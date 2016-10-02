@@ -11,6 +11,18 @@
  */
 define('RGX__REGEXP', '/\/.*\//');
 /**
+ * Regexp to match an array var type.
+ */
+define('RGX__PHPDOC_ARRAY', '/^\w+\[\]$/');
+/**
+ * Regexp to match a phpdoc multi type.
+ */
+define('RGX__PHPDOC_MULTI', '/(?P<arrays>\w+\[\])|(?P<single>\w+)/');
+/**
+ * Regexp to match and catch phpdoc multi type.
+ */
+define('RGX__CATCH__PHPDOC_MULTI', '/(?P<arrays>\w+\[\])|(?P<single>\w+)/');
+/**
  * Regexp to match an class.
  */
 define('RGX__CLASS', '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/');
@@ -34,6 +46,14 @@ define('RGX__CATCH__WILDCARD', '/(?P<wildcards>%\w+%)/');
  * Regex to match a "wildcard".
  */
 define('RGX__WILDCARD', '/(%\w+%)/');
+/**
+ * Regex to match a file name with an extension.
+ */
+define('RGX__FILE_EXT', '/^\w+.\w+$/');
+/**
+ * Regex to match and catch a file name extension.
+ */
+define('RGX__CATCH__FILE_EXT', '/^\w+.(?P<ext>\w+)$/');
 
 /**
  * Matches a string vs an array of regular expressions.
