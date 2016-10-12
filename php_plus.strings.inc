@@ -35,6 +35,32 @@ function str2camelcase($string, $uc_first = TRUE) {
 }
 
 /**
+ * Transforms a string into a sentence style string.
+ *
+ * @param string $string
+ *   The string to transform.
+ *
+ * @return string
+ */
+function machine_name2sentence($string) {
+  $regexp = '/(?P<matches>[^a-zA-Z0-9]+)/';
+  preg_match_all($regexp, $string, $matches, PREG_OFFSET_CAPTURE);
+  $index_mod = 0;
+  $count     = count($matches['matches']);
+  for ($i = 0; $i < $count; $i++) {
+    $char        = $matches['matches'][$i][0];
+    $length      = strlen($char);
+    $pos         = $matches['matches'][$i][1] - $index_mod;
+    $follow      = substr($string, ($pos + $length), 1);
+    $to_rep_with = ' ' . $follow;
+    $string      = substr_replace($string, $to_rep_with, $pos, ($length + 1));
+    $index_mod += ($length - 1);
+  }
+
+  return ucfirst($string);
+}
+
+/**
  * Transforms the entity_type machine_name into the entity class name.
  * (Eg : "FooBar" turns to "foo_bar").
  *
@@ -50,11 +76,9 @@ function camelcase2lowercase($string) {
   foreach ($matches['upper'] as $match) {
     $upper         = $match[0];
     $pos           = $match[1] + $index_mod;
-    $upper_replace = $pos == 0 ? $upper : '_' . $upper;
-    if ($pos != 0) {
-      $pos--;
-    }
-    $string = substr_replace($string, $upper_replace, $pos, 1);
+    $length        = strlen($upper);
+    $upper_replace = $pos == 0 ? $upper : '_' . strtolower($upper);
+    $string        = substr_replace($string, $upper_replace, $pos, $length);
     $index_mod++;
   }
 
@@ -152,7 +176,7 @@ function concat($str, $arg, $lnk = '_') {
  * @return string
  */
 function clast($string) {
-  return substr($string, strlen($string), 1);
+  return substr($string, strlen($string) - 1, 1);
 }
 
 /**

@@ -44,11 +44,14 @@ function tpl_process_wildcards($string, $wildcards = array(), $variables) {
  *
  * @param string $string
  *   The template string.
+ * @param bool   $clean
+ *   Whether to include the wildcard in the extract.
  *
  * @return array
  */
-function tpl_extract_wildcard($string) {
-  preg_match_all(RGX__CATCH__WILDCARD, $string, $matches);
+function tpl_extract_wildcard($string, $clean = FALSE) {
+  $regexp = $clean ? RGX__CATCH__WILDCARD_SUB : RGX__CATCH__WILDCARD;
+  preg_match_all($regexp, $string, $matches);
 
   return $matches['wildcards'];
 }

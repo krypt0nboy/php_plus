@@ -13,10 +13,12 @@
  *   The head path.
  * @param array  $tails
  *   The tail path elements to join.
+ * @param bool   $slash_end
+ *   Whether to end with slash or not.
  *
  * @return string
  */
-function paths_join($head, array $tails = array()) {
+function paths_join($head, array $tails = array(), $slash_end = TRUE) {
   $head_  = clast($head) == '/' ? substr($head, 0, strlen($head) - 1) : $head;
   $tails_ = array();
   foreach ($tails as $tail) {
@@ -25,8 +27,14 @@ function paths_join($head, array $tails = array()) {
     }
   }
   $concat = concat($head_, $tails_, '/');
+  if ($slash_end) {
+    $path = $concat . (clast($concat) == '/' ? '' : '/');
+  }
+  else {
+    $path = clast($concat) == '/' ? substr($concat, 0, strlen($concat - 1)) : $concat;
+  }
 
-  return $concat . (clast($concat) == '/' ? '' : '/');
+  return $path;
 }
 
 /**
@@ -61,4 +69,32 @@ function file_path($file_name, $head, array $tails = array(), $file_ext = NULL) 
  * @return array
  */
 function path_split($path) {
+}
+
+/**
+ * Returns the head part of a path.
+ *
+ * @param string $path
+ *   The path to split.
+ *
+ * @return string
+ */
+function path_head($path) {
+  $split = explode('/', $path);
+
+  return end($split);
+}
+
+/**
+ * Returns the path's head position.
+ *
+ * @param string $path
+ *   The path to split.
+ *
+ * @return string
+ */
+function path_head_pos($path) {
+  $split = array_filter(explode('/', $path), 'strlen');
+
+  return count($split) - 1;
 }

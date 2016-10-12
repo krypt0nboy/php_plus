@@ -252,19 +252,48 @@ function is_array_objects_of(array $array = array(), $class) {
 }
 
 /**
+ * Filters an associative array by value.
+ *
+ * @param array  $array
+ *   The array to filter.
+ * @param mixed  $condition
+ *   The filter value condition.
+ * @param string $key
+ *   The key to check.
+ *
+ * @return array
+ */
+function array_filter_by_value($array, $condition, $key = NULL) {
+  if (isset($key)) {
+    foreach ($array as $k => $i) {
+      if (!empty($i[$key])) {
+        if ($i[$key] != $condition) {
+          unset($array[$k]);
+        }
+      }
+      else {
+        unset($array[$k]);
+      }
+    }
+  }
+
+  return $array;
+}
+
+/**
  * Flattens an array values.
  *
  * @param array       $array
  *   The array to flatten.
- * @param null|string $parent_key
- *   The parent key.
+ * @param null|string $prefix
+ *   The prefix.
  *
  * @return array
  */
-function flatten_array(array $array = array(), $parent_key = NULL) {
+function flatten_array(array $array = array(), $prefix = NULL) {
   $flat = array();
   foreach ($array as $key => $item) {
-    $new_key = isset($parent_key) ? concat($parent_key, $key) : $key;
+    $new_key = isset($prefix) ? concat($prefix, $key) : $key;
     if (is_array($item)) {
       $flat += flatten_array($item, $new_key);
     }

@@ -43,6 +43,10 @@ define('RGX__FILE_EXT_INC', '/.*.inc$/');
  */
 define('RGX__CATCH__WILDCARD', '/(?P<wildcards>%\w+%)/');
 /**
+ * Regex to match a "wildcard" and store it in $matches['wildcards'].
+ */
+define('RGX__CATCH__WILDCARD_SUB', '/(%(?P<wildcards>\w+)%)/');
+/**
  * Regex to match a "wildcard".
  */
 define('RGX__WILDCARD', '/(%\w+%)/');
@@ -79,4 +83,18 @@ function preg_grep_reverse($needle, array $array = array(), $ensure = FALSE) {
   }
 
   return $matches;
+}
+
+/**
+ * Removes any matching characters from a string.
+ *
+ * @param string $pattern
+ *   The pattern to match. A valid regexp.
+ * @param string $string
+ *   The string to process.
+ *
+ * @return string
+ */
+function preg_remove($pattern, $string) {
+  return preg_replace($pattern, '', $string);
 }

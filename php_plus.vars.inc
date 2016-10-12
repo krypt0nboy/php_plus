@@ -250,7 +250,7 @@ function value_match_type_multi($var, $type) {
     $evals[] = value_match_type_nonmulti($var, $t);
   }
 
-  return in_array(TRUE, $evals, TRUE);
+  return in_array(TRUE, $evals);
 }
 
 /**
@@ -274,7 +274,7 @@ function value_match_type_array($var, $type) {
       $evals[] = value_match_type_nonarray($item, $clean);
     }
 
-    return !in_array(FALSE, $evals, TRUE);
+    return in_array(TRUE, $evals);
   }
 }
 
@@ -289,7 +289,7 @@ function value_match_type_array($var, $type) {
  * @return bool
  */
 function value_match_type_nonarray($var, $type) {
-  $pseudo_type = preg_match(RGX__CLASS, $type) ? 'class_instance' : $type;
+  $pseudo_type = preg_match(RGX__CLASS, $type) && $type != 'class' ? 'class_instance' : $type;
   switch ($pseudo_type) {
     case 'false':
     case 'true':
